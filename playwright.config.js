@@ -33,8 +33,8 @@ export default defineConfig({
     actionTimeout: 15000,
     navigationTimeout: 30000,
 
-    /* UI mode */
-    headless: false,
+    /* UI mode - Dynamically switches based on environment */
+    headless: process.env.CI ? true : false,
   },
 
   /* BROWSER PROJECTS */
