@@ -9,37 +9,36 @@ on:
 
 permissions:
   contents: read
-  actions: read
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout code
+      # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Setup Node (stable LTS)
+      # 2. Setup Node.js (stable LTS)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
 
-      # Install dependencies
+      # 3. Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      # Install Playwright browsers
+      # 4. Install Playwright browsers
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      # Run tests
+      # 5. Run tests
       - name: Run Playwright tests
         run: npx playwright test
 
-      # Upload HTML report
+      # 6. Upload HTML report (always)
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
         if: always()
@@ -47,7 +46,7 @@ jobs:
           name: playwright-report
           path: playwright-report/
 
-      # Upload traces on failure
+      # 7. Upload traces (only on failure)
       - name: Upload Playwright traces
         uses: actions/upload-artifact@v4
         if: failure()
