@@ -7,7 +7,6 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# 🔐 Required permissions for artifacts
 permissions:
   contents: read
   actions: read
@@ -16,35 +15,31 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    env:
-      # Future-proofing for GitHub Actions Node transition
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
     steps:
-      # 1. Checkout repo
+      # Checkout code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Setup Node.js (upgraded)
+      # Setup Node (stable LTS)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
 
-      # 3. Install dependencies
+      # Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      # 4. Install Playwright browsers
+      # Install Playwright browsers
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      # 5. Run tests
+      # Run tests
       - name: Run Playwright tests
         run: npx playwright test
 
-      # 6. Upload HTML report (always)
+      # Upload HTML report
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
         if: always()
@@ -52,7 +47,7 @@ jobs:
           name: playwright-report
           path: playwright-report/
 
-      # 7. Upload traces (useful for debugging failures)
+      # Upload traces on failure
       - name: Upload Playwright traces
         uses: actions/upload-artifact@v4
         if: failure()
