@@ -15,11 +15,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout repository (Upgraded to v6 to support Node 24)
+      # 1. Checkout repository (Supports Node 24 natively)
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      # 2. Setup Node.js (Upgraded to v6 to support Node 24)
+      # 2. Setup Node.js (Supports Node 24 natively)
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
@@ -38,17 +38,17 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
 
-      # 6. Upload HTML report (Upgraded to v5 to support Node 24)
+      # 6. Upload HTML report (Upgraded to v7 to natively support Node 24)
       - name: Upload Playwright report
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: playwright-report
           path: playwright-report/
 
-      # 7. Upload traces (Upgraded to v5 to support Node 24)
+      # 7. Upload traces (Upgraded to v7 to natively support Node 24)
       - name: Upload Playwright traces
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: playwright-traces
