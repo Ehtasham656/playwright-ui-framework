@@ -1,3 +1,6 @@
+![Playwright](https://img.shields.io/badge/Playwright-Automation-green)
+![CI](https://img.shields.io/badge/GitHub-Actions-blue)
+
 # Playwright UI Automation Framework
 
 ## Tech Stack
